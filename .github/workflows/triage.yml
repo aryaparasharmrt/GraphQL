@@ -1,0 +1,47 @@
+name: Automated Triage
+
+on:
+ issues:
+  types:
+   - opened
+   - labeled
+ pull_request:
+  types:
+   - opened
+   - labeled
+
+jobs:
+ triage:
+  runs-on: ${{ matrix.os }}
+
+  strategy:
+   matrix:
+    os: [windows-latest, ubuntu-latest]
+
+  steps:
+   - name: Checkout Repository
+     uses: actions/checkout@v2
+
+   - name: Set up Python
+     uses: actions/setup-python@v2
+     with:
+      python-version: 3.8
+
+   - name: Install dependencies
+     run:
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+
+   - name: Execute Python Script
+     run:
+      python my.py
+
+
+
+
+
+
+
+
+
+      
